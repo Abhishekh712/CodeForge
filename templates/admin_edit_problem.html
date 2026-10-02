@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Problem - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<h1>Edit Problem</h1>
+
+<form method="POST">
+
+    <label for="title">Title:</label>
+    <br>
+
+    <input
+        type="text"
+        id="title"
+        name="title"
+        value="{{ problem.title }}"
+        required
+    >
+
+    <br><br>
+
+
+    <label for="description">Description:</label>
+    <br>
+
+    <textarea
+        id="description"
+        name="description"
+        rows="8"
+        cols="80"
+        required
+    >{{ problem.description }}</textarea>
+
+    <br><br>
+
+
+    <label for="difficulty">Difficulty:</label>
+    <br>
+
+    <select
+        id="difficulty"
+        name="difficulty"
+        required
+    >
+
+        <option value="Easy"
+            {% if problem.difficulty == "Easy" %}selected{% endif %}>
+            Easy
+        </option>
+
+        <option value="Medium"
+            {% if problem.difficulty == "Medium" %}selected{% endif %}>
+            Medium
+        </option>
+
+        <option value="Hard"
+            {% if problem.difficulty == "Hard" %}selected{% endif %}>
+            Hard
+        </option>
+
+    </select>
+
+    <br><br>
+
+
+    <label for="category">Category:</label>
+    <br>
+
+    <input
+        type="text"
+        id="category"
+        name="category"
+        value="{{ problem.category }}"
+        required
+    >
+
+    <br><br>
+
+
+    <label for="constraints">Constraints:</label>
+    <br>
+
+    <textarea
+        id="constraints"
+        name="constraints"
+        rows="5"
+        cols="80"
+    >{{ problem.constraints or "" }}</textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Update Problem
+    </button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('admin.problems') }}">
+    Back to Problem Management
+</a>
+
+{% endblock %}

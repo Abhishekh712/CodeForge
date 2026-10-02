@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Submissions - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<div class="submissions-page">
+
+    <div class="page-header">
+
+        <h1>My Submissions</h1>
+
+        <p>
+            View your previous coding attempts and submission results.
+        </p>
+
+    </div>
+
+
+    {% if submissions %}
+
+        <div class="submissions-table-wrapper">
+
+            <table class="submissions-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Problem</th>
+                        <th>Language</th>
+                        <th>Status</th>
+                        <th>Tests</th>
+                        <th>Execution Time</th>
+                        <th>Submitted At</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for submission in submissions %}
+
+                        <tr>
+
+                            <td>
+                                <a
+                                    href="{{ url_for(
+                                        'main.submission_detail',
+                                        submission_id=submission.id
+                                    ) }}"
+                                    class="submission-problem"
+                                >
+                                    {{ submission.problem.title }}
+                                </a>
+                            </td>
+
+                            <td>
+                                {{ submission.language }}
+                            </td>
+
+                            <td>
+
+                                <span class="status-badge {{ submission.status|lower|replace(' ', '-') }}">
+                                    {{ submission.status }}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                {{ submission.passed_tests }}
+                                /
+                                {{ submission.total_tests }}
+                            </td>
+
+                            <td>
+
+                                {% if submission.execution_time is not none %}
+                                    {{ "%.3f"|format(submission.execution_time) }}s
+                                {% else %}
+                                    -
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ submission.submitted_at.strftime("%b %d, %Y · %I:%M %p") }}
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h2>No submissions yet</h2>
+
+            <p>
+                You haven't submitted any solutions yet.
+            </p>
+
+            <a href="{{ url_for('main.problems') }}">
+                <button type="button">
+                    Browse Problems
+                </button>
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>CodeForge Admin Dashboard</h1>
+
+<p class="admin-welcome">
+    Welcome, Admin!
+</p>
+
+<hr>
+
+<h2>Platform Statistics</h2>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>{{ total_users }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Problems</h3>
+        <p>{{ total_problems }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Submissions</h3>
+        <p>{{ total_submissions }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Test Cases</h3>
+        <p>{{ total_test_cases }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Accepted</h3>
+        <p>{{ accepted_submissions }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Wrong Answers</h3>
+        <p>{{ wrong_answers }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Runtime Errors</h3>
+        <p>{{ runtime_errors }}</p>
+    </div>
+
+</div>
+
+<hr>
+
+<h2>Admin Management</h2>
+
+<div class="admin-actions">
+
+    <a href="{{ url_for('admin.users') }}">
+        <button type="button">
+            Manage Users
+        </button>
+    </a>
+
+    <a href="{{ url_for('admin.problems') }}">
+        <button type="button">
+            Manage Problems
+        </button>
+    </a>
+
+    <a href="{{ url_for('admin.submissions') }}">
+        <button type="button">
+            Manage Submissions
+        </button>
+    </a>
+
+</div>
+
+{% endblock %}

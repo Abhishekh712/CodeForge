@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Submission #{{ submission.id }}</h1>
+
+<p>
+    <strong>Problem:</strong>
+    {{ submission.problem.title }}
+</p>
+
+<p>
+    <strong>Language:</strong>
+    {{ submission.language }}
+</p>
+
+<p>
+    <strong>Status:</strong>
+    {{ submission.status }}
+</p>
+
+<p>
+    <strong>Execution Time:</strong>
+
+    {% if submission.execution_time %}
+        {{ "%.3f"|format(submission.execution_time) }}s
+    {% else %}
+        -
+    {% endif %}
+</p>
+
+<p>
+    <strong>Submitted At:</strong>
+    {{ submission.submitted_at }}
+</p>
+
+<h2>Your Code</h2>
+
+<pre><code>{{ submission.code }}</code></pre>
+
+<p>
+    <a href="{{ url_for('main.submissions') }}">
+        Back to Submissions
+    </a>
+</p>
+
+{% endblock %}

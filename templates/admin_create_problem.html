@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Problem - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<h1>Create New Problem</h1>
+
+<form method="POST">
+
+    <label for="title">Title:</label>
+    <br>
+
+    <input
+        type="text"
+        id="title"
+        name="title"
+        required
+    >
+
+    <br><br>
+
+
+    <label for="description">Description:</label>
+    <br>
+
+    <textarea
+        id="description"
+        name="description"
+        rows="8"
+        cols="80"
+        required
+    ></textarea>
+
+    <br><br>
+
+
+    <label for="difficulty">Difficulty:</label>
+    <br>
+
+    <select
+        id="difficulty"
+        name="difficulty"
+        required
+    >
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+    </select>
+
+    <br><br>
+
+
+    <label for="category">Category:</label>
+    <br>
+
+    <input
+        type="text"
+        id="category"
+        name="category"
+        required
+    >
+
+    <br><br>
+
+
+    <label for="constraints">Constraints:</label>
+    <br>
+
+    <textarea
+        id="constraints"
+        name="constraints"
+        rows="5"
+        cols="80"
+    ></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Create Problem
+    </button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('admin.problems') }}">
+    Back to Problem Management
+</a>
+
+{% endblock %}

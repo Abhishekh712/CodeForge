@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}
+Test Cases - {{ problem.title }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Test Cases</h1>
+
+<h2>{{ problem.title }}</h2>
+
+<p>
+    <strong>Problem ID:</strong>
+    {{ problem.id }}
+</p>
+
+<hr>
+
+<h3>Existing Test Cases</h3>
+
+{% if test_cases %}
+
+    {% for test_case in test_cases %}
+
+        <div>
+
+            <h4>
+                Test Case {{ loop.index }}
+            </h4>
+
+            <p>
+                <strong>ID:</strong>
+                {{ test_case.id }}
+            </p>
+
+            <p>
+                <strong>Visibility:</strong>
+
+                {% if test_case.is_hidden %}
+                    Hidden
+                {% else %}
+                    Public
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Input:</strong>
+            </p>
+
+            <pre>{{ test_case.input_data | tojson(indent=2) }}</pre>
+
+            <p>
+                <strong>Expected Output:</strong>
+            </p>
+            <p>
+                <a href="{{ url_for(
+                    'admin.edit_test_case',
+                    problem_id=problem.id,
+                    test_case_id=test_case.id
+                ) }}">
+                    <button type="button">Edit Test Case</button>
+                </a>
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'admin.delete_test_case',
+                        problem_id=problem.id,
+                        test_case_id=test_case.id
+                    ) }}"
+                    style="display: inline;"
+                >
+
+                    <button type="submit">
+                        Delete Test Case
+                    </button>
+
+                </form>
+            </p>
+
+            <pre>{{ test_case.expected_output | tojson(indent=2) }}</pre>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No test cases available for this problem.</p>
+
+{% endif %}
+
+<h3>Add Test Case</h3>
+
+<form
+    method="POST"
+    action="{{ url_for('admin.create_test_case', problem_id=problem.id) }}"
+>
+
+    <label for="input_data">
+        Input JSON:
+    </label>
+
+    <br>
+
+    <textarea
+        id="input_data"
+        name="input_data"
+        rows="8"
+        cols="60"
+        placeholder='{"nums": [2, 7, 11, 15], "target": 9}'
+        required
+    ></textarea>
+
+    <br><br>
+
+    <label for="expected_output">
+        Expected Output JSON:
+    </label>
+
+    <br>
+
+    <textarea
+        id="expected_output"
+        name="expected_output"
+        rows="5"
+        cols="60"
+        placeholder='[0, 1]'
+        required
+    ></textarea>
+
+    <br><br>
+
+    <label>
+        <input
+            type="checkbox"
+            name="is_hidden"
+        >
+        Hidden Test Case
+    </label>
+
+    <br><br>
+
+    <button type="submit">
+        Add Test Case
+    </button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('admin.problems') }}">
+    Back to Problem Management
+</a>
+
+{% endblock %}

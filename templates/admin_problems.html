@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin - Problems
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <h1>Admin Problem Management</h1>
+
+        <p>
+            Create, edit, and manage CodeForge coding problems.
+        </p>
+
+    </div>
+
+    <div class="admin-page-actions">
+
+        <a href="{{ url_for('admin.create_problem') }}">
+            <button type="button">
+                + Create New Problem
+            </button>
+        </a>
+
+    </div>
+
+
+    {% if problems %}
+
+        <div class="admin-problems-list">
+
+            {% for problem in problems %}
+
+                <div class="admin-problem-card">
+
+                    <div class="admin-problem-header">
+
+                        <div>
+
+                            <h2>
+                                {{ problem.title }}
+                            </h2>
+
+                            <p class="problem-id">
+                                Problem ID: {{ problem.id }}
+                            </p>
+
+                        </div>
+
+                        <span class="difficulty {{ problem.difficulty|lower }}">
+                            {{ problem.difficulty }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-problem-info">
+
+                        <span>
+                            <strong>Category:</strong>
+                            {{ problem.category }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-problem-actions">
+
+                        <a href="{{ url_for(
+                            'admin.edit_problem',
+                            problem_id=problem.id
+                        ) }}">
+                            <button type="button">
+                                Edit Problem
+                            </button>
+                        </a>
+
+
+                        <a href="{{ url_for(
+                            'admin.test_cases',
+                            problem_id=problem.id
+                        ) }}">
+                            <button
+                                type="button"
+                                class="button-secondary"
+                            >
+                                Manage Test Cases
+                            </button>
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'admin.delete_problem',
+                                problem_id=problem.id
+                            ) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="button-danger"
+                            >
+                                Delete Problem
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h2>No problems available</h2>
+
+            <p>
+                Create your first coding problem to get started.
+            </p>
+
+            <a href="{{ url_for('admin.create_problem') }}">
+                <button type="button">
+                    Create Problem
+                </button>
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="admin-page-actions">
+
+        <a href="{{ url_for('admin.dashboard') }}">
+            <button type="button" class="button-secondary">
+                Back to Admin Dashboard
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

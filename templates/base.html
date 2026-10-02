@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}CodeForge{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>CodeForge</h1>
+
+        <nav>
+
+            <a href="{{ url_for('main.home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('main.about') }}">
+                About
+            </a>
+
+            <a href="{{ url_for('main.problems') }}">
+                Problems
+            </a>
+
+            {% if current_user.is_authenticated %}
+
+                <a href="{{ url_for('main.dashboard') }}">
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('main.submissions') }}">
+                    My Submissions
+                </a>
+
+                {% if current_user.is_admin %}
+
+                    <a href="{{ url_for('admin.dashboard') }}">
+                        Admin Dashboard
+                    </a>
+
+                {% endif %}
+
+                <a href="{{ url_for('main.logout') }}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('main.login') }}">
+                    Login
+                </a>
+
+                <a href="{{ url_for('main.register') }}">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </nav>
+    </header>
+
+    <main>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+</html>

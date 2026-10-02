@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Say Hello - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<h2>Say Hello</h2>
+
+<form method="POST">
+
+    <label for="name">Your name:</label>
+
+    <input type="text" id="name" name="name">
+
+    <button type="submit">Submit</button>
+
+</form>
+
+{% endblock %}

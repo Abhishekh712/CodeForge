@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Problems - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Coding Problems</h1>
+
+    <p>
+        Practice coding problems and improve your problem-solving skills.
+    </p>
+
+</div>
+
+<div class="problems-list">
+
+    {% for problem in problems %}
+
+        <div class="problem-card">
+
+            <div class="problem-card-header">
+
+                <h2>
+                    <a href="{{ url_for(
+                        'main.problem_detail',
+                        problem_id=problem.id
+                    ) }}">
+                        {{ problem.title }}
+                    </a>
+                </h2>
+
+                <span class="difficulty {{ problem.difficulty|lower }}">
+                    {{ problem.difficulty }}
+                </span>
+
+            </div>
+
+            <p class="problem-category">
+                {{ problem.category }}
+            </p>
+
+            <a
+                class="solve-link"
+                href="{{ url_for(
+                    'main.problem_detail',
+                    problem_id=problem.id
+                ) }}"
+            >
+                Solve Problem →
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

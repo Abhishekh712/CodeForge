@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+CodeForge - Online Judge
+{% endblock %}
+
+{% block content %}
+
+{% if username %}
+
+    <h2>
+        Welcome back, {{ username }}!
+    </h2>
+
+    <p>
+        Ready to solve some problems?
+    </p>
+
+    <p>
+        <a href="{{ url_for('main.problems') }}">
+            Browse Problems
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('main.submissions') }}">
+            My Submissions
+        </a>
+    </p>
+
+{% else %}
+
+    <h2>
+        Welcome to CodeForge!
+    </h2>
+
+    <p>
+        Your online interview practice platform.
+    </p>
+
+    <p>
+        <a href="{{ url_for('main.problems') }}">
+            Browse Problems
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('main.login') }}">
+            Login
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('main.register') }}">
+            Register
+        </a>
+    </p>
+
+{% endif %}
+
+{% endblock %}

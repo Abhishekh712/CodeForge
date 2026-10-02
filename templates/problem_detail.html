@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ problem.title }} - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<div class="problem-detail">
+
+    <div class="problem-header">
+
+        <div>
+            <h1>{{ problem.title }}</h1>
+
+            <p class="problem-category">
+                {{ problem.category }}
+            </p>
+        </div>
+
+        <span class="difficulty {{ problem.difficulty|lower }}">
+            {{ problem.difficulty }}
+        </span>
+
+    </div>
+
+
+    <section class="problem-section">
+
+        <h2>Description</h2>
+
+        <p>
+            {{ problem.description }}
+        </p>
+
+    </section>
+
+
+    <section class="problem-section">
+
+        <h2>Constraints</h2>
+
+        <div class="constraints">
+            {{ problem.constraints }}
+        </div>
+
+    </section>
+
+
+    <section class="problem-section">
+
+        <h2>Examples</h2>
+
+        {% if test_cases %}
+
+            <div class="examples">
+
+                {% for test_case in test_cases %}
+
+                    <div class="example-card">
+
+                        <h3>
+                            Example {{ loop.index }}
+                        </h3>
+
+                        <p>
+                            <strong>Input</strong>
+                        </p>
+
+                        <pre><code>{{ test_case.input_data | tojson(indent=2) }}</code></pre>
+
+                        <p>
+                            <strong>Output</strong>
+                        </p>
+
+                        <pre><code>{{ test_case.expected_output | tojson }}</code></pre>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>No examples available.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="submission-section">
+
+        <h2>Submit Your Solution</h2>
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'main.submit_solution',
+                problem_id=problem.id
+            ) }}"
+        >
+
+            <div class="form-group">
+
+                <label for="language">
+                    Language
+                </label>
+
+                <select
+                    name="language"
+                    id="language"
+                >
+                    <option value="python">
+                        Python
+                    </option>
+
+                    <option value="java">
+                        Java
+                    </option>
+
+                    <option value="cpp">
+                        C++
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="code">
+                    Your Code
+                </label>
+
+                <textarea
+                    name="code"
+                    id="code"
+                    rows="18"
+                    placeholder="Write your solution here..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button type="submit">
+                Submit Solution
+            </button>
+
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

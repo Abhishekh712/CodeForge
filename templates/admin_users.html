@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin - Users
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <h1>Admin User Management</h1>
+
+        <p>
+            Manage CodeForge users and administrator access.
+        </p>
+
+    </div>
+
+    {% if users %}
+
+        <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for user in users %}
+
+                        <tr>
+
+                            <td>
+                                {{ user.id }}
+                            </td>
+
+                            <td>
+                                <strong>{{ user.username }}</strong>
+                            </td>
+
+                            <td>
+                                {{ user.email }}
+                            </td>
+
+                            <td>
+
+                                {% if user.is_admin %}
+
+                                    <span class="role-badge admin">
+                                        Admin
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="role-badge user">
+                                        User
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <div class="admin-table-actions">
+
+                                    {% if user.is_admin %}
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'admin.remove_admin',
+                                                user_id=user.id
+                                            ) }}"
+                                        >
+
+                                            <button
+                                                type="submit"
+                                                class="button-secondary"
+                                            >
+                                                Remove Admin
+                                            </button>
+
+                                        </form>
+
+                                    {% else %}
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'admin.make_admin',
+                                                user_id=user.id
+                                            ) }}"
+                                        >
+
+                                            <button type="submit">
+                                                Make Admin
+                                            </button>
+
+                                        </form>
+
+                                    {% endif %}
+
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'admin.delete_user',
+                                            user_id=user.id
+                                        ) }}"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="button-danger"
+                                        >
+                                            Delete User
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h2>No users found</h2>
+
+            <p>
+                There are currently no users registered on CodeForge.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="admin-page-actions">
+
+        <a href="{{ url_for('admin.dashboard') }}">
+            <button type="button" class="button-secondary">
+                Back to Admin Dashboard
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

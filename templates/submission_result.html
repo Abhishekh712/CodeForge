@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}
+Submission Result - CodeForge
+{% endblock %}
+
+{% block content %}
+
+<div class="submission-result">
+
+    <div class="result-header">
+
+        <h1>Submission Result</h1>
+
+        <span class="status-badge {{ submission.status|lower|replace(' ', '-') }}">
+            {{ submission.status }}
+        </span>
+
+    </div>
+
+
+    <div class="submission-info">
+
+        <div class="info-card">
+            <span class="info-label">Problem</span>
+            <strong>{{ submission.problem.title }}</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="info-label">Language</span>
+            <strong>{{ submission.language }}</strong>
+        </div>
+
+        <div class="info-card">
+            <span class="info-label">Tests Passed</span>
+            <strong>
+                {{ submission.passed_tests }} / {{ submission.total_tests }}
+            </strong>
+        </div>
+
+        <div class="info-card">
+            <span class="info-label">Execution Time</span>
+            <strong>
+                {% if submission.execution_time is not none %}
+                    {{ "%.3f"|format(submission.execution_time) }}s
+                {% else %}
+                    -
+                {% endif %}
+            </strong>
+        </div>
+
+    </div>
+
+
+    <section class="result-section">
+
+        <h2>Test Results</h2>
+
+        <div class="test-results">
+
+            {% for result in submission.test_results %}
+
+                <div class="test-result">
+
+                    <span>
+                        Test Case {{ loop.index }}
+                    </span>
+
+                    {% if result.passed %}
+
+                        <span class="test-status passed">
+                            ✓ Passed
+                        </span>
+
+                    {% else %}
+
+                        <span class="test-status failed">
+
+                            ✗
+
+                            {% if result.hidden %}
+                                Hidden Test Failed
+                            {% else %}
+                                Failed
+                            {% endif %}
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    {% if submission.error_message %}
+
+        <section class="result-section">
+
+            <h2>Details</h2>
+
+            <pre><code>{{ submission.error_message }}</code></pre>
+
+        </section>
+
+    {% endif %}
+
+
+    <div class="result-actions">
+
+        <a href="{{ url_for('main.submissions') }}">
+            <button type="button">
+                My Submissions
+            </button>
+        </a>
+
+        <a href="{{ url_for('main.problems') }}">
+            <button type="button">
+                Back to Problems
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

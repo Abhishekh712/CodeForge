@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin - Submissions
+{% endblock %}
+
+{% block content %}
+
+<h1>Admin Submission Management</h1>
+
+{% if submissions %}
+
+    {% for submission in submissions %}
+
+        <div>
+
+            <p>
+                <strong>Submission ID:</strong>
+                {{ submission.id }}
+            </p>
+
+            <p>
+                <strong>User:</strong>
+                {{ submission.user.username }}
+            </p>
+
+            <p>
+                <strong>Problem:</strong>
+                {{ submission.problem.title }}
+            </p>
+
+            <p>
+                <strong>Language:</strong>
+                {{ submission.language }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ submission.status }}
+            </p>
+
+            <p>
+                <strong>Tests Passed:</strong>
+                {{ submission.passed_tests }}
+                /
+                {{ submission.total_tests }}
+            </p>
+
+            <p>
+                <strong>Execution Time:</strong>
+
+                {% if submission.execution_time is not none %}
+                    {{ "%.3f"|format(submission.execution_time) }}s
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+
+            <p>
+                <a href="{{ url_for(
+                    'admin.submission_detail',
+                    submission_id=submission.id
+                ) }}">
+                    <button type="button">
+                        View Submission
+                    </button>
+                </a>
+            </p>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No submissions available.</p>
+
+{% endif %}
+
+<p>
+    <a href="{{ url_for('admin.dashboard') }}">
+        Back to Admin Dashboard
+    </a>
+</p>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Test Case - {{ problem.title }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Edit Test Case</h1>
+
+<h2>{{ problem.title }}</h2>
+
+<p>
+    <strong>Test Case ID:</strong>
+    {{ test_case.id }}
+</p>
+
+<form
+    method="POST"
+    action="{{ url_for(
+        'admin.edit_test_case',
+        problem_id=problem.id,
+        test_case_id=test_case.id
+    ) }}"
+>
+
+    <label for="input_data">
+        Input JSON:
+    </label>
+
+    <br>
+
+    <textarea
+        id="input_data"
+        name="input_data"
+        rows="8"
+        cols="60"
+        required
+    >{{ test_case.input_data | tojson(indent=2) }}</textarea>
+
+    <br><br>
+
+    <label for="expected_output">
+        Expected Output JSON:
+    </label>
+
+    <br>
+
+    <textarea
+        id="expected_output"
+        name="expected_output"
+        rows="5"
+        cols="60"
+        required
+    >{{ test_case.expected_output | tojson(indent=2) }}</textarea>
+
+    <br><br>
+
+    <label>
+        <input
+            type="checkbox"
+            name="is_hidden"
+            {% if test_case.is_hidden %}
+                checked
+            {% endif %}
+        >
+
+        Hidden Test Case
+    </label>
+
+    <br><br>
+
+    <button type="submit">
+        Update Test Case
+    </button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for(
+    'admin.test_cases',
+    problem_id=problem.id
+) }}">
+    Cancel
+</a>
+
+{% endblock %}
