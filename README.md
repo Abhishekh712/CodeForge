@@ -61,7 +61,7 @@ Browse available coding problems by difficulty and topic.
 ### Problem Details
 View problem descriptions, constraints, examples, and test cases.
 
-![Problem Details](screenshots/Problem description.png)
+![Problem Details](screenshots/Problemdescription.png)
 
 
 
@@ -83,7 +83,7 @@ Track previous attempts, verdicts, test results, and execution times.
 ### Admin Dashboard
 Monitor platform statistics and manage users, problems, and submissions.
 
-![Admin Dashboard](screenshots/Admin page.png)
+![Admin Dashboard](screenshots/Adminpage.png)
 
 ## Tech Stack
 
