@@ -95,6 +95,35 @@ CodeForge/
 ├── .gitignore
 └── README.md
 ```
+## Architecture
+
+CodeForge follows a modular Flask architecture:
+
+User
+ ↓
+Flask Web Application
+ ↓
+Routes / Authentication
+ ↓
+SQLAlchemy ORM
+ ↓
+PostgreSQL
+
+For code submissions:
+
+User submits code
+ ↓
+Flask submission route
+ ↓
+Execution sandbox
+ ↓
+Test case execution
+ ↓
+Output comparison
+ ↓
+Submission verdict
+ ↓
+Submission history
 
 ## Database Design
 
