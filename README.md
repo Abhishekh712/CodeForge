@@ -51,6 +51,40 @@ CodeForge includes an automated submission pipeline that:
 5. Records the result and execution time.
 6. Displays detailed feedback to the user.
 
+## Screenshots
+
+### Problem Dashboard
+Browse available coding problems by difficulty and topic.
+
+![CodeForge Problems](screenshots/Problems.png)
+
+### Problem Details
+View problem descriptions, constraints, examples, and test cases.
+
+![Problem Details](screenshots/Problem_description.png)
+
+
+
+### Code Submission
+Write and submit Python solutions directly through the platform.
+
+![Code Submission](screenshots/Solution.png)
+
+### Submission Result
+Receive automated verdicts with test case results and execution time.
+
+![Submission Result](screenshots/Result.png)
+
+### Submission History
+Track previous attempts, verdicts, test results, and execution times.
+
+![Submission History](screenshots/Submissions.png)
+
+### Admin Dashboard
+Monitor platform statistics and manage users, problems, and submissions.
+
+![Admin Dashboard](screenshots/Admin_page.png)
+
 ## Tech Stack
 
 | Technology | Purpose |
